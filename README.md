@@ -1,7 +1,7 @@
-# Experiment-4---Implementation-of-MLP-with-Backpropagation
+# EXPERIMENT-4---IMPLEMENTATION-OF-MLP-WITH-BACKPROPAGATION
 
 ## AIM:
-To implement a Multilayer Perceptron for Multi classification
+To implement a Multilayer Perceptron for Multi classification.
 
 ## EQUIPMENTS REQUIRED:
 Hardware – PCs
@@ -100,7 +100,7 @@ In the backward pass,
 
 ## ALGORITHM:
 
-1.Import the necessary libraries of python.
+1. Import the necessary libraries of python.
 
 2. After that, create a list of attribute names in the dataset and use it in a call to the read_csv() function of the pandas library along with the name of the CSV file containing the dataset.
 
@@ -109,16 +109,144 @@ In the backward pass,
 4. Call the train_test_split() function that further divides the dataset into training data and testing data with a testing data size of 20%.
 Normalize our dataset. 
 
-5.In order to do that we call the StandardScaler() function. Basically, the StandardScaler() function subtracts the mean from a feature and scales it to the unit variance.
+5. In order to do that we call the StandardScaler() function. Basically, the StandardScaler() function subtracts the mean from a feature and scales it to the unit variance.
 
-6.Invoke the MLPClassifier() function with appropriate parameters indicating the hidden layer sizes, activation function, and the maximum number of iterations.
+6. Invoke the MLPClassifier() function with appropriate parameters indicating the hidden layer sizes, activation function, and the maximum number of iterations.
 
-7.In order to get the predicted values we call the predict() function on the testing data set.
-
+7. In order to get the predicted values we call the predict() function on the testing data set.
+ 
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
-## PROGRAM 
+## PROGRAM:
 
+Developed by : Pabbarthi Chetan Sathish Kumar
+
+Register number : 212220230033
+
+### Importing Libraries
+```
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+```
+
+### Reading Dataset
+```
+df = pd.read_csv("/content/IRIS.csv")
+df
+```
+### Assigning X and Y values
+```
+# Takes first 4 columns and assign them to variable "X"
+# X = df.iloc[:,:4]
+X = df[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
+
+# Takes first 5th columns and assign them to variable "Y". Object dtype refers to strings.
+# y = df.select_dtypes(include=[object])  
+y = df['species']
+```
+
+### First five values of X and Y
+```
+X.head()
+
+y.head()
+```
+### Unique values in Y
+```
+print(y.unique())
+```
+### Transforming Categorical values of Y into numerical values
+```
+le = LabelEncoder()
+y = le.fit_transform(y)
+y
+```
+### Splitting Dataset for Training and Testing
+```
+# 80% - training data and 20% - test data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+```
+### Normalizing X values
+```
+# Feature scaling
+scaler = StandardScaler()  
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)  
+X_test = scaler.transform(X_test)
+```
+### Creating MLP and classifying
+```
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  
+mlp.fit(X_train, y_train)  
+predictions = mlp.predict(X_test) 
+```
+### Predictions
+```
+print(predictions)
+```
+### Accuracy
+```
+accuracy_score(y_test,predictions)
+```
+### Confusion Matrix
+```
+print(confusion_matrix(y_test,predictions))
+```
+### Classification Report
+```
+print(classification_report(y_test,predictions))
+```
 ## OUTPUT 
+### Reading Dataset
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/d8d4620f-9f44-4807-8cd5-29284d7946cb)
+<br>
+</br>
 
-## RESULT
+### First five values of X
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/add48d85-00c7-4295-b71c-d98d8adadbce)
+<br>
+</br>
+
+### First five values of Y
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/b04d27ac-23cb-42a8-8ead-c7d36a04c257)
+<br>
+</br>
+
+### Unique values in Y
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/b6037582-9937-41ed-b0d9-ee52e9aeff73)
+<br>
+</br>
+
+### Transforming Categorical values of Y into numerical values
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/ec13b392-f56e-498c-84d0-e3df9a211802)
+<br>
+</br>
+
+### Predictions
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/7813356a-3af3-48f4-9f9e-96fce5764435)
+<br>
+</br>
+
+### Accuracy
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/f1c7be80-d9c6-4e23-9c1c-88efe763c437)
+<br>
+</br>
+
+### Confusion Matrix
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/09cebfe0-ac18-4a55-8074-fe427a86f592)
+<br>
+</br>
+
+### Classification Report
+![image](https://github.com/chetansathishkumar/Experiment-4---Implementation-of-MLP-with-Backpropagation/assets/75260837/fb7c1f0d-3be1-44db-aac2-6dd3224f65e7)
+<br>
+</br>
+
+
+
+## RESULT:
+Thus, a Multilayer Perceptron with Backpropagation is implemented for Multi classification.
